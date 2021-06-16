@@ -1,6 +1,6 @@
 # OpenDoge.js
 
-A TypeScript library for OpenDoge.
+A TypeScript/JavaScript library for OpenDoge.
 
 ## Tests
 
