@@ -6,8 +6,12 @@ const client = new Client()
 client.connect('http://localhost:5000').then(async () => {
   console.log('Connected to server')
 
-  client.loginTraveller('john.doe@example.com', 'password123').then(() => {
-    console.log(`Logged in as '${client.traveller?.name}'`)
+  client.listTravellers().then(data => {
+    console.log(`Found '${data.length}' travellers:`)
+    for (let i = 0; i < data.length; i++) {
+      const id = data[i];
+      console.log('\t'+id)
+    }
   }).catch(err => {
     console.log(err)
   })

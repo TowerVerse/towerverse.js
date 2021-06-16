@@ -6,13 +6,13 @@ const client = new Client()
 client.connect('http://localhost:5000').then(async () => {
   console.log('Connected to server')
 
-  client.createUser({
+  client.createTraveller({
     travellerName: 'John Doe',
     travellerEmail: 'john.doe@example.com',
     // can someone teach john basic security practices?
     travellerPassword: 'password123'
   }).then(() => {
-    console.log(`Successfully created user '${client.user?.name}'`)
+    console.log(`Successfully created traveller '${client.traveller?.name}'`)
   }).catch(err => {
     console.log(err)
   })

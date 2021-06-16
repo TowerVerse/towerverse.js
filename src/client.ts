@@ -1,7 +1,7 @@
 import { TypedEmitter } from 'tiny-typed-emitter'
 import WebSocket from 'ws'
 
-import { User } from './classes/user'
+import { Traveller } from './classes/traveller'
 import { ClientEvents, ServerEvents, NewTravellerData } from './utils/types'
 
 /**
@@ -12,7 +12,7 @@ export class Client extends TypedEmitter<ClientEvents> {
   private cache: Record<string, (data: any) => void> = {}
   private refCount = 0
 
-  user: User | undefined
+  traveller: Traveller | undefined
 
   constructor() {
     super()
@@ -61,16 +61,16 @@ export class Client extends TypedEmitter<ClientEvents> {
   }
 
   /**
-   * Create a user
+   * Create a traveller
    */
-  createUser(traveller: NewTravellerData): Promise<Client> {
+  createTraveller(travellerData: NewTravellerData): Promise<Client> {
     return new Promise((res, rej) => {
-      this.send('createTraveller', traveller).then(response => {
+      this.send('createTraveller', travellerData).then(response => {
         if (response.event !== 'createTravellerReply') rej(response.data.errorMessage)
 
-        const user = new User(this, {...traveller, ...response.data})
+        const traveller = new Traveller(this, {...travellerData, ...response.data})
 
-        this.user = user
+        this.traveller = traveller
         res(this)
       }).catch(err => {
         rej(err)
@@ -89,19 +89,64 @@ export class Client extends TypedEmitter<ClientEvents> {
   }
 
   /**
-   * Login as an existing user
+   * Login as an existing traveller
    */
-  loginUser(travellerEmail: string, travellerPassword: string) {
+  loginTraveller(travellerEmail: string, travellerPassword: string): Promise<Client> {
     return new Promise((res, rej) => {
       this.send('loginTraveller', {travellerEmail, travellerPassword}).then(async response => {
         if (response.event !== 'loginTravellerReply') rej(response.data.errorMessage)
 
-        const userData = await this.send('fetchTraveller', {...response.data})
+        const travellerData = await this.send('fetchTraveller', {...response.data})
 
-        const user = new User(this, {...userData.data})
+        const traveller = new Traveller(this, {...travellerData.data})
 
-        this.user = user
+        this.traveller = traveller
         res(this)
+      }).catch(err => {
+        rej(err)
+      })
+    })
+  }
+
+  /**
+   * Fetch a traveller using their id.
+   */
+  fetchTraveller(travellerId: string): Promise<Traveller> {
+    return new Promise((res, rej) => {
+      this.send('fetchTraveller', {travellerId}).then(response => {
+        if (response.event !== 'fetchTravellerReply') rej(response.data.errorMessage)
+
+        const traveller = new Traveller(this, {...response.data})
+
+        res(traveller)
+      }).catch(err => {
+        rej(err)
+      })
+    })
+  }
+
+  /**
+   * List all travellers
+   */
+  listTravellers(): Promise<string[]> {
+    return new Promise((res, rej) => {
+      this.send('fetchTravellers', {}).then(response => {
+        if (response.event !== 'fetchTravellersReply') rej(response.data.errorMessage)
+        res(response.data.travellerIds)
+      }).catch(err => {
+        rej(err)
+      })
+    })
+  }
+
+  /**
+   * Get the total number of travellers
+   */
+  totalTravellers(): Promise<number> {
+    return new Promise((res, rej) => {
+      this.send('totalTravellers', {}).then(response => {
+        if (response.event !== 'totalTravellersReply') rej(response.data.errorMessage)
+        res(response.data.totalTravellers)
       }).catch(err => {
         rej(err)
       })
