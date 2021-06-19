@@ -61,17 +61,18 @@ export class Client extends TypedEmitter<ClientEvents> {
   }
 
   /**
-   * Create a traveller
+   * Create a traveller.
+   * The traveller will still need to be verified.
    */
-  createTraveller(travellerData: NewTravellerData): Promise<Client> {
+  createTraveller(travellerData: NewTravellerData): Promise<Traveller> {
     return new Promise((res, rej) => {
+      if (this.traveller && this.traveller.email) throw Error(`Already logged in as ${this.traveller.name}`)
       this.send('createTraveller', travellerData).then(response => {
         if (response.event !== 'createTravellerReply') rej(response.data.errorMessage)
 
         const traveller = new Traveller(this, {...travellerData, ...response.data})
 
-        this.traveller = traveller
-        res(this)
+        res(traveller)
       }).catch(err => {
         rej(err)
       })

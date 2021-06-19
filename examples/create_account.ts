@@ -13,6 +13,7 @@ client.connect('http://localhost:5000').then(async () => {
     travellerPassword: 'password123'
   }).then(() => {
     console.log(`Successfully created traveller '${client.traveller?.name}'`)
+    // NOTE: you will have to verify your account using `client.traveller.verify('MY_CODE')` with the code you received in the email.
   }).catch(err => {
     console.log(err)
   })

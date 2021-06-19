@@ -10,7 +10,8 @@ export type ServerEvents =
   'fetchTravellers' |
   'loginTraveller'  |
   'logoutTraveller' |
-  'totalTravellers'
+  'totalTravellers' |
+  'verifyTraveller'
 
 export interface ClientEvents {
   'connect': () => void
