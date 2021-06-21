@@ -1,6 +1,6 @@
-# OpenDoge.js
+# TowerVerse.js
 
-A TypeScript/JavaScript library for OpenDoge.
+A TypeScript/JavaScript library for TowerVerse.
 
 ## Tests
 

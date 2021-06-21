@@ -5,7 +5,7 @@ import { Traveller } from './classes/traveller'
 import { ClientEvents, ServerEvents, NewTravellerData } from './utils/types'
 
 /**
- * The `Client` class is what you will use to connect and access the OpenDoge server.
+ * The `Client` class is what you will use to connect and access the TowerVerse server.
  */
 export class Client extends TypedEmitter<ClientEvents> {
   ws: WebSocket | undefined
@@ -80,7 +80,7 @@ export class Client extends TypedEmitter<ClientEvents> {
   }
 
   /**
-   * Disconnect from the OpenDoge server
+   * Disconnect from the TowerVerse server
    */
   disconnect() {
     if (!this.ws || !this.ws.CLOSED) throw Error('WebSocket not connected')
