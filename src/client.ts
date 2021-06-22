@@ -40,7 +40,7 @@ export class Client extends TypedEmitter<ClientEvents> {
   /**
    * Connect to the server using the url provided.
    */
-  connect(url: string = 'wss://opendoge.herokuapp.com'): Promise<Client> {
+  connect(url: string = 'wss://towerverse.herokuapp.com'): Promise<Client> {
     if (this.ws?.OPEN) throw Error('Connection already established')
 
     return new Promise((res, rej) => {
