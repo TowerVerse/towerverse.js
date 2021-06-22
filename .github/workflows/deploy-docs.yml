@@ -18,6 +18,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '15.x'
+    - name: Install deps
+      run: npm ci
     - name: Build docs
       run: npm run docs
     - name: Deploy
