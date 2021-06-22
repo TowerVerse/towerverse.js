@@ -1,6 +1,26 @@
 {
   "name": "towerverse.js",
+  "description": "The TypeScript/JavaScript library of TowerVerse.",
   "version": "0.1.0",
+  "keywords": [
+    "towerverse",
+    "library",
+    "bot"
+  ],
+  "homepage": "https://towerverse.github.io/towerverse.js",
+  "bugs": {
+    "url": "https://github.com/TowerVerse/towerverse.js/issues"
+  },
+  "author": {
+    "name": "otterlord",
+    "url": "https://github.com/TheOtterlord",
+    "email": "reuben.tier@icloud.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TowerVerse/towerverse.js"
+  },
+  "license": "GPL-3.0",
   "main": "lib/index",
   "scripts": {
     "build": "tsc",

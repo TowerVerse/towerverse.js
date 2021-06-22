@@ -1,5 +1,9 @@
 # TowerVerse.js
 
+![npm](https://img.shields.io/npm/v/towerverse.js)
+![npm](https://img.shields.io/npm/dw/towerverse.js)
+
+
 A TypeScript/JavaScript library for TowerVerse.
 
 ## Tests
