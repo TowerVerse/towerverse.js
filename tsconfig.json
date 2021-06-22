@@ -16,5 +16,9 @@
     "declaration": true,
     "noImplicitAny": false
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts"],
+  "typedocOptions": {
+    "entryPoints": ["src/index.ts"],
+    "out": "public"
+  }
 }
