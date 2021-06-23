@@ -62,8 +62,47 @@
 					<h1>TowerVerse.js</h1>
 				</a>
 				<p><img src="https://img.shields.io/npm/v/towerverse.js" alt="npm">
-				<img src="https://img.shields.io/npm/dw/towerverse.js" alt="npm"></p>
-				<p>A TypeScript/JavaScript library for TowerVerse.</p>
+					<img src="https://img.shields.io/npm/dw/towerverse.js" alt="npm">
+					<img src="https://img.shields.io/github/stars/towerverse/towerverse.js?style=social" alt="GitHub Repo stars">
+					<img src="https://img.shields.io/github/sponsors/towerverse" alt="GitHub Sponsors">
+					<a href="https://github.com/TowerVerse/towerverse.js/actions/workflows/test.yml"><img src="https://github.com/TowerVerse/towerverse.js/actions/workflows/test.yml/badge.svg" alt="Mocha Tests"></a>
+				<img src="https://img.shields.io/github/license/towerverse/towerverse.js" alt="GitHub"></p>
+				<p>A TypeScript/JavaScript library for TowerVerse.
+				For full documentation, see <a href="https://towerverse.github.io/towerverse.js/">https://towerverse.github.io/towerverse.js/</a></p>
+				<a href="#install" id="install" style="color: inherit; text-decoration: none;">
+					<h2>Install</h2>
+				</a>
+				<pre><code class="language-bash"><span style="color: #000000">npm install towerverse.js</span>
+</code></pre>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
+				</a>
+				<p>See <code>./examples</code> for more.</p>
+				<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">Client</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;towerverse.js&#039;</span>
+<span style="color: #008000">// or</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">Client</span><span style="color: #000000"> } = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;towerverse.js&#039;</span><span style="color: #000000">)</span>
+
+<span style="color: #008000">// Create a client</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">client</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">Client</span><span style="color: #000000">()</span>
+
+<span style="color: #008000">// connect to the server</span>
+<span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">connect</span><span style="color: #000000">().</span><span style="color: #795E26">then</span><span style="color: #000000">(</span><span style="color: #0000FF">async</span><span style="color: #000000"> () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Connected to server!&#039;</span><span style="color: #000000">)</span>
+
+<span style="color: #000000">  </span><span style="color: #008000">// Create an account</span>
+<span style="color: #000000">  </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">createTraveller</span><span style="color: #000000">({</span>
+<span style="color: #000000">    </span><span style="color: #001080">travellerName:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;John Doe&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #001080">travellerEmail:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;john.doe@example.com&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #008000">// can someone teach john basic security practices?</span>
+<span style="color: #000000">    </span><span style="color: #001080">travellerPassword:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;password123&#039;</span>
+<span style="color: #000000">  }).</span><span style="color: #795E26">then</span><span style="color: #000000">(() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #008000">// You have created an account, and will be sent an email with a code, use `client.traveller.verify(&#039;MY_CODE&#039;)` to claim your account.</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">`Successfully created traveller &#039;</span><span style="color: #0000FF">${</span><span style="color: #001080">client</span><span style="color: #000000FF">.</span><span style="color: #001080">traveller</span><span style="color: #000000FF">?.</span><span style="color: #001080">name</span><span style="color: #0000FF">}</span><span style="color: #A31515">&#039;`</span><span style="color: #000000">)</span>
+<span style="color: #000000">  }).</span><span style="color: #795E26">catch</span><span style="color: #000000">(</span><span style="color: #001080">err</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">err</span><span style="color: #000000">)</span>
+<span style="color: #000000">  })</span>
+<span style="color: #000000">})</span>
+</code></pre>
 				<a href="#tests" id="tests" style="color: inherit; text-decoration: none;">
 					<h2>Tests</h2>
 				</a>
@@ -78,6 +117,10 @@
 				<pre><code class="language-bash"><span style="color: #000000">npm i</span>
 <span style="color: #000000">ts-node examples/login.ts</span>
 </code></pre>
+				<a href="#support" id="support" style="color: inherit; text-decoration: none;">
+					<h2>Support</h2>
+				</a>
+				<p><em>Coming soon</em></p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
