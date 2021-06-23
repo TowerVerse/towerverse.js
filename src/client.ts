@@ -153,4 +153,18 @@ export class Client extends TypedEmitter<ClientEvents> {
       })
     })
   }
+
+  /**
+   * Get the total number of travellers currently online
+   */
+  onlineTravellers(): Promise<number> {
+    return new Promise((res, rej) => {
+      this.send('onlineTravellers', {}).then(response => {
+        if (response.event !== 'onlineTravellersReply') rej(response.data.errorMessage)
+        res(response.data.onlineTravellers)
+      }).catch(err => {
+        rej(err)
+      })
+    })
+  }
 }
