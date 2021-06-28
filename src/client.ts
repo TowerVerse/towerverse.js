@@ -30,7 +30,7 @@ export class Client extends TypedEmitter<ClientEvents> {
       }
 
       this.ws.send(JSON.stringify({...data, event}))
-      this.emit('send', event)
+      this.emit('send', event, data)
 
       setTimeout(() => {
         rej('Response timed out')
