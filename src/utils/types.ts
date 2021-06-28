@@ -18,5 +18,5 @@ export interface ClientEvents {
   'connect': () => void
   'disconnect': () => void
   'send': (data: any) => void
-  'recv': (data: any) => void
+  'recv': (event: string) => void
 }
