@@ -30,6 +30,7 @@ export class Client extends TypedEmitter<ClientEvents> {
       }
 
       this.ws.send(JSON.stringify({...data, event}))
+      this.emit('send', data)
 
       setTimeout(() => {
         rej('Response timed out')
@@ -54,6 +55,7 @@ export class Client extends TypedEmitter<ClientEvents> {
         data = JSON.parse(data)
         if (this.cache[data.ref]) {
           this.cache[data.ref](data)
+          this.emit('recv', data)
           delete this.cache[data.ref]
         }
       })

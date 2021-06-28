@@ -17,4 +17,6 @@ export type ServerEvents =
 export interface ClientEvents {
   'connect': () => void
   'disconnect': () => void
+  'send': (data: any) => {}
+  'recv': (data: any) => {}
 }
