@@ -30,6 +30,31 @@ export class Traveller extends TypedEmitter<TravellerEvents> {
   }
 
   /**
+   * Resend the verification code for the account link to the provided email.
+   */
+  resendVerificationCode(email?: string) {
+    if (!this.email && !email) throw Error('No email provided')
+    return this.client.send('resendTravellerCode', {
+      travellerEmail: email ?? this.email
+    })
+  }
+
+  /**
+   * Change the traveller's name
+   */
+  changeName(newTravellerName: string, travellerPassword: string) {
+    return new Promise((res, rej) => {
+      this.client.send('resetTravellerName', {
+        newTravellerName,
+        travellerPassword
+      }).then(response => {
+        if (response.event !== 'resetTravellerNameReply') rej(response.data.errorMessage)
+        res(response.data)
+      })
+    })
+  }
+
+  /**
    * Log out of the current traveller account.
    * This will remove the current traveller object on the client.
    */

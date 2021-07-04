@@ -128,6 +128,31 @@ export class Client extends TypedEmitter<ClientEvents> {
     })
   }
 
+  resetPasswordRequest(travellerEmail: string, oldTravellerPassword: string, newTravellerPassword: string) {
+    return new Promise((res, rej) => {
+      this.send('resetTravellerPassword', {
+        travellerEmail,
+        oldTravellerPassword,
+        newTravellerPassword
+      }).then(response => {
+        if (response.event !== 'resetTravellersPasswordReply') rej(response.data.errorMessage)
+        res(response.data)
+      })
+    })
+  }
+
+  resetPasswordConfirm(travellerEmail: string, travellerPasswordCode: string) {
+    return new Promise((res, rej) => {
+      this.send('resetTravellerPasswordFinal', {
+        travellerEmail,
+        travellerPasswordCode
+      }).then(response => {
+        if (response.event !== 'resetTravellerPasswordFinalReply') rej(response.data.errorMessage)
+        res(response.data)
+      })
+    })
+  }
+
   /**
    * List all travellers
    */

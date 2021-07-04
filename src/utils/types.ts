@@ -5,14 +5,19 @@ export interface NewTravellerData {
 }
 
 export type ServerEvents =
-  'createTraveller'  |
-  'fetchTraveller'   |
-  'fetchTravellers'  |
-  'loginTraveller'   |
-  'logoutTraveller'  |
-  'totalTravellers'  |
+  'createTraveller' |
+  'fetchTraveller' |
+  'fetchTravellers' |
+  'loginTraveller' |
+  'logoutTraveller' |
+  'totalTravellers' |
   'onlineTravellers' |
-  'verifyTraveller'
+  'verifyTraveller' |
+  'resendTravellerCode' |
+  'resetTravellerPassword' |
+  'resetTravellerPasswordFinal' |
+  'resetTravellerPasswordAccount' |
+  'resetTravellerName'
 
 export interface ClientEvents {
   'connect': () => void
