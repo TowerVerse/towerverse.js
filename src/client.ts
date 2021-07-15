@@ -128,6 +128,9 @@ export class Client extends TypedEmitter<ClientEvents> {
     })
   }
 
+  /**
+   * Request a password reset
+   */
   resetPasswordRequest(travellerEmail: string, oldTravellerPassword: string, newTravellerPassword: string) {
     return new Promise((res, rej) => {
       this.send('resetTravellerPassword', {
@@ -141,6 +144,9 @@ export class Client extends TypedEmitter<ClientEvents> {
     })
   }
 
+  /**
+   * Confirm a password reset with the code from the email
+   */
   resetPasswordConfirm(travellerEmail: string, travellerPasswordCode: string) {
     return new Promise((res, rej) => {
       this.send('resetTravellerPasswordFinal', {
