@@ -1,5 +1,6 @@
 import { TypedEmitter } from 'tiny-typed-emitter'
 import WebSocket from 'ws'
+import { Guild, GuildVisibility } from './classes/guild'
 
 import { Traveller } from './classes/traveller'
 import { ClientEvents, ServerEvents, NewTravellerData } from './utils/types'
@@ -195,6 +196,99 @@ export class Client extends TypedEmitter<ClientEvents> {
       this.send('onlineTravellers', {}).then(response => {
         if (response.event !== 'onlineTravellersReply') rej(response.data.errorMessage)
         res(response.data.onlineTravellers)
+      }).catch(err => {
+        rej(err)
+      })
+    })
+  }
+
+  /**
+   * Create a guild
+   */
+  createGuild(name: string, description: string, visibility: GuildVisibility, maxMembers: number): Promise<Guild> {
+    return new Promise((res, rej) => {
+      this.send('createGuild', {name, description, visibility, maxMembers}).then(response => {
+        if (response.event !== 'createGuildReply') rej(response.data.errorMessage)
+
+        const guild = new Guild(this, {name, description, visibility, creator: this.traveller?.id ?? '', members: [this.traveller?.id ?? ''], maxMembers, id: response.data.guildId})
+
+        res(guild)
+      }).catch(err => {
+        rej(err)
+      })
+    })
+  }
+
+  /**
+   * Join a guild
+   */
+  joinGuild(guildId: string): Promise<string> {
+    return new Promise((res, rej) => {
+      this.send('joinGuild', {guildId}).then(response => {
+        if (response.event !== 'joinGuildReply') rej(response.data.errorMessage)
+        res(response.data.guildId)
+      }).catch(err => {
+        rej(err)
+      })
+    })
+  }
+
+  /**
+   * Fetch a guild
+   */
+  fetchGuild(guildId: string): Promise<Guild> {
+    return new Promise((res, rej) => {
+      this.send('fetchGuild', {guildId}).then(response => {
+        if (response.event !== 'fetchGuildReply') rej(response.data.errorMessage)
+
+        const guild = new Guild(this, {...response.data})
+
+        res(guild)
+      }).catch(err => {
+        rej(err)
+      })
+    })
+  }
+
+  /**
+   * Fetch a list of guilds
+   */
+  listGuilds(): Promise<string[]> {
+    return new Promise((res, rej) => {
+      this.send('fetchGuilds', {}).then(response => {
+        if (response.event !== 'fetchGuildsReply') rej(response.data.errorMessage)
+        res(response.data.guildIds)
+      }).catch(err => {
+        rej(err)
+      })
+    })
+  }
+
+  /**
+   * Get the current guild
+   */
+  currentGuild(): Promise<Guild> {
+    return new Promise((res, rej) => {
+      this.send('currentGuild', {}).then(response => {
+        if (response.event !== 'currentGuildReply') rej(response.data.errorMessage)
+
+        const guild = new Guild(this, {...response.data})
+
+        res(guild)
+      }).catch(err => {
+        rej(err)
+      })
+    })
+  }
+
+  /**
+   * Leave the current guild
+   */
+  leaveGuild(): Promise<void> {
+    return new Promise((res, rej) => {
+      this.send('leaveGuild', {}).then(response => {
+        if (response.event !== 'leaveGuildReply') rej(response.data.errorMessage)
+        res()
       }).catch(err => {
         rej(err)
       })

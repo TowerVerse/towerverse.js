@@ -17,7 +17,14 @@ export type ServerEvents =
   'resetTravellerPassword' |
   'resetTravellerPasswordFinal' |
   'resetTravellerPasswordAccount' |
-  'resetTravellerName'
+  'resetTravellerName'|
+  // Guilds
+  'createGuild' |
+  'joinGuild' |
+  'fetchGuild' |
+  'fetchGuilds' |
+  'currentGuild' |
+  'leaveGuild'
 
 export interface ClientEvents {
   'connect': () => void
